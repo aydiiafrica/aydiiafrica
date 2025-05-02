@@ -1,19 +1,76 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base colors */
+  --primary: #00a0e3;
+  --primary-light: #33b3e9;
+  --primary-dark: #0080b6;
+
+  --secondary: #f78100;
+  --secondary-light: #ff9a1f;
+  --secondary-dark: #d66f00;
+
+  /* Typography */
+  --font-sans: var(--font-lora);
+  --font-serif: var(--font-lora);
+  --font-sour-gummy: var(--font-sour-gummy);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-100: var(--primary-light);
+  --color-primary-200: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-100: var(--secondary-light);
+  --color-secondary-200: var(--secondary-dark);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+}
+
+strong {
+  font-weight: 700;
+  /* font-style: italic; */
+}
+
+
+.underlined {
+  position: relative;
+  text-decoration: none
+}
+
+.underlined::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-radius: 100px;
+  height: 1px;
+  bottom: -10px;
+  left: 0;
+  background-color: currentColor; /* Uses the text color */
+}
+
+.underline-animate {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-animate::after {
+  content: "";
+  position: absolute;
+  border-radius: 100px;
+  width: 0%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  bottom: -10px;
+  background-color: currentColor; /* Uses the text color */
+  transition: width 0.3s ease;
+}
+
+.underline-animate:hover::after {
+  width: 100%;
 }
