@@ -125,7 +125,7 @@ const ThematicAreas = () => {
                 }
               }}
               passHref
-              href={sdg.slug}
+              href={`/${sdg.slug}`}
               key={sdg.id}
               className={cn(
                 'relative space-y-4 border rounded-md p-8 md:p-12 grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-y-4 gap-x-10',
