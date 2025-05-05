@@ -56,9 +56,9 @@ export default function JoinPage() {
       setIsSubmitting(true);
       setSubmitError('');
 
-      // Create a FormData to handle the file upload
-      const formData = new FormData();
-      formData.append('file', data.photo[0]);
+      // // Create a FormData to handle the file upload
+      // const formData = new FormData();
+      // formData.append('file', data.photo[0]);
 
       // Upload the image to Sanity
       const imageResponse = await client.assets.upload('image', data.photo[0]);
