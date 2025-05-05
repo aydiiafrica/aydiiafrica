@@ -1,23 +1,28 @@
-import { sanityClient } from '@/lib/sanity';
-import { Container } from '../components/common/Container';
-import Image from 'next/image';
-import { cn } from '../lib/cn';
-import { ProjectCard } from '../components/common/ProjectCard';
-import { urlFor } from '../lib/sanity';
+'use client';
 
-interface SDGItem {
-  id: number;
+import { useState, useEffect } from 'react';
+import { Container } from '../components/common/Container';
+import { ProjectCard } from '@/app/components/common/ProjectCard';
+import { client, urlFor } from '@/lib/sanity';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/cn';
+import { use } from 'react';
+
+interface Project {
+  _id: string;
   title: string;
-  subtitle: string;
+  slug: { current: string };
+  category: string;
   description: string;
-  image: string;
-  color: string;
-  slug: string;
-  p: string;
-  heading: string;
+  mainImage: {
+    asset: {
+      url: string;
+    };
+  };
 }
 
-const sdgItems: SDGItem[] = [
+const sdgItems = [
   {
     id: 13,
     title: 'Climate Action',
@@ -57,49 +62,59 @@ const sdgItems: SDGItem[] = [
   },
 ];
 
-interface Project {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  category: string;
-  description: string;
-  mainImage: {
-    asset: {
-      url: string;
-    };
-  };
-}
+export default function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const router = useRouter();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const { category } = use(params);
 
-interface Props {
-  params: {
-    category: string;
-  };
-}
+  const sdg = sdgItems.find(
+    (i) => i.slug.toLowerCase() === category.toLowerCase()
+  );
 
-async function getProjectsByCategory(category: string): Promise<Project[]> {
-  const query = `*[_type == "project" && category == $category] {
+  // Redirect to home if category not found
+  useEffect(() => {
+    if (!sdg) {
+      router.push('/');
+    }
+  }, [sdg, router]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const query = `*[_type == "project" && category == $category] {
         _id,
         title,
         slug,
         category,
         description,
-        mainImage
+        mainImage {
+          asset -> {
+            url
+          }
+        }
       }`;
+      const result = await client.fetch(query, { category });
+      setProjects(result);
+    };
 
-  return sanityClient.fetch(query, { category });
-}
+    if (sdg) {
+      fetchProjects();
+    }
+  }, [category, sdg]);
 
-export default async function CategoryPage({ params }: Props) {
-  const projects = await getProjectsByCategory(params.category);
-  const sdg = sdgItems.find(
-    (i) => i.slug.toLowerCase() === params.category.toLowerCase()
-  );
+  // If category not found, return null as we're redirecting
+  if (!sdg) {
+    return null;
+  }
 
   return (
     <main className="py-20">
       <Container>
         <article className="flex flex-col gap-10 items-start justify-center">
-          {sdg?.image && (
+          {sdg.image && (
             <div className="relative h-[10rem] w-[10rem] rounded-md overflow-hidden">
               <Image
                 src={sdg.image}
@@ -111,16 +126,16 @@ export default async function CategoryPage({ params }: Props) {
               />
             </div>
           )}
-          <h1 className={`text-4xl font-heading`}>{sdg?.title}</h1>
+          <h1 className={`text-4xl font-heading`}>{sdg.title}</h1>
           <p className="w-full md:max-w-[80ch] text-gray-500 font-light">
-            {sdg?.description}
+            {sdg.description}
           </p>
         </article>
 
         <div className="mt-18 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {!Boolean(projects.length) && (
             <div className="flex flex-col items-center justify-center p-5 col-span-full gap-2 min-h-[20rem]">
-              <h1 className={cn(`text-lg ${sdg?.heading}`)}>No projects yet</h1>
+              <h1 className={cn(`text-lg ${sdg.heading}`)}>No projects yet</h1>
               <p className="text-sm text-gray-400">Please check back later</p>
             </div>
           )}
@@ -129,7 +144,7 @@ export default async function CategoryPage({ params }: Props) {
             <ProjectCard
               key={project._id}
               title={project.title}
-              mainImage={urlFor(project.mainImage).url()}
+              mainImage={project.mainImage.asset.url}
               slug={project.slug.current}
               category={project.category}
               description={project.description}

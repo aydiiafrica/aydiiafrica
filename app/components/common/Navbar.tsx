@@ -50,7 +50,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-9">
             {NAVIGATION_ITEMS.map((item) => (
               <Link
-                key={item.href}
+                key={item.name}
                 href={item.href}
                 className={cn(
                   'text-md font-normal transition-colors text-white',
@@ -117,7 +117,7 @@ export function Navbar() {
                 href={item.href}
                 className={cn(
                   `block text-xl font-normal transition-colors text-white`,
-                  pathname === item.href ? '' : ''
+                  pathname === item.href ? 'underlined' : 'underline-animate'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
