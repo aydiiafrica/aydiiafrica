@@ -9,14 +9,18 @@ import { client } from '../lib/sanity';
 import Image from 'next/image';
 import Metrics from '../components/Metrics';
 
+// Modify schema to handle photo validation client-side
 const volunteerSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
   gender: z.enum(['male', 'female', 'other', 'prefer-not-to-say']),
-  photo: z
-    .instanceof(FileList)
-    .refine((files) => files.length > 0, 'Photo is required'),
+  photo: z.any().refine((file) => {
+    if (!(file instanceof FileList)) return false;
+    if (file.length === 0) return false;
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    return validTypes.includes(file[0]?.type);
+  }, 'Please upload a valid image file (JPEG, PNG, GIF, or WebP)'),
 });
 
 type VolunteerForm = z.infer<typeof volunteerSchema>;
@@ -56,12 +60,18 @@ export default function JoinPage() {
       setIsSubmitting(true);
       setSubmitError('');
 
-      // // Create a FormData to handle the file upload
-      // const formData = new FormData();
-      // formData.append('file', data.photo[0]);
+      // Validate file type client-side
+      const file = data.photo[0];
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        setSubmitError(
+          'Please upload a valid image file (JPEG, PNG, GIF, or WebP)'
+        );
+        return;
+      }
 
       // Upload the image to Sanity
-      const imageResponse = await client.assets.upload('image', data.photo[0]);
+      const imageResponse = await client.assets.upload('image', file);
 
       // Create the volunteer document
       await client.create({
@@ -187,7 +197,7 @@ export default function JoinPage() {
                 />
                 {errors.photo && (
                   <p className="mt-1 text-sm text-red-500">
-                    {errors.photo.message}
+                    {errors.photo.message?.toString()}
                   </p>
                 )}
               </div>
