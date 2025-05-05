@@ -27,6 +27,6 @@ export function useScrollPosition() {
   return {
     scrollPosition,
     isScrolling,
-    isScrolled: scrollPosition > 600,
+    isScrolled: scrollPosition > 1000,
   };
 }

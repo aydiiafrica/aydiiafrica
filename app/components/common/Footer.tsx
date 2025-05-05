@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Container } from './Container';
 
@@ -6,35 +8,40 @@ const FOOTER_LINKS = {
     { name: 'Our Mission', href: '/about#mission' },
     { name: 'Vision & Values', href: '/about#vision' },
     { name: 'Team', href: '/about#team' },
-    { name: 'Partners', href: '/about#partners' },
+
   ],
   getInvolved: [
     { name: 'Join Us', href: '/join' },
-    // { name: 'Volunteer', href: '/volunteer' },
     { name: 'Donate', href: '/donate' },
     { name: 'Partner with Us', href: '/partner' },
   ],
   resources: [
     { name: 'News', href: '/news' },
     { name: 'Events', href: '/events' },
-    { name: 'Reports', href: '/reports' },
-    { name: 'Media', href: '/media' },
+    {
+      name: 'Privacy Policy',
+      href: 'https://u88ydg7fy0.ufs.sh/f/0b2i4G6p5pfH11H2RUQ6ji0y94eYM1UncBGIXuxgQER2aHf3',
+    },
   ],
+  contact: {
+    email: 'info@aydiiafrica.org',
+    address: ['Ganaja Village Lokoja, Kogi State, Nigeria'],
+  },
 };
 
 const SOCIAL_LINKS = [
-  {
-    name: 'Twitter',
-    href: 'https://twitter.com/aydiiafrica',
-    icon: (
-      <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-      </svg>
-    ),
-  },
+  // {
+  //   name: 'Twitter',
+  //   href: 'https://twitter.com/aydiiafrica',
+  //   icon: (
+  //     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+  //       <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+  //     </svg>
+  //   ),
+  // },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/company/aydiiafrica',
+    href: 'https://www.linkedin.com/company/aydiiafrica/',
     icon: (
       <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -43,7 +50,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: 'Facebook',
-    href: 'https://facebook.com/aydiiafrica',
+    href: 'https://www.facebook.com/share/16ugtY4bQy/',
     icon: (
       <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
         <path
@@ -56,7 +63,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: 'Instagram',
-    href: 'https://instagram.com/aydiiafrica',
+    href: 'https://www.instagram.com/aydii_africa?igsh=dmhrcmhlZWlrajRn',
     icon: (
       <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
         <path
@@ -70,12 +77,12 @@ const SOCIAL_LINKS = [
 ];
 
 export function Footer() {
+
   return (
-    <footer className="bg-white">
+    <footer  className="bg-white border-t border-gray-200">
       <Container className="py-12 md:py-16">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-          {/* Organization Info */}
-          <div className="col-span-2 md:col-span-1">
+        <div className="grid grid-cols-2 gap-5 md:gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+          <div  className="col-span-2 md:col-span-1">
             <Link href="/" className="flex flex-col items-start">
               <img
                 src="/logo.png"
@@ -89,7 +96,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">About</h3>
             <ul className="space-y-3">
@@ -97,7 +103,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-primary transition-colors"
+                    className="footer-link text-sm text-gray-600 hover:text-primary transition-colors inline-block"
                   >
                     {link.name}
                   </Link>
@@ -113,7 +119,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-primary transition-colors"
+                    className="footer-link text-sm text-gray-600 hover:text-primary transition-colors inline-block"
                   >
                     {link.name}
                   </Link>
@@ -129,7 +135,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-primary transition-colors"
+                    className="footer-link text-sm text-gray-600 hover:text-primary transition-colors inline-block"
                   >
                     {link.name}
                   </Link>
@@ -137,17 +143,44 @@ export function Footer() {
               ))}
             </ul>
           </div>
+
+          <div>
+            <h3 className="text-gray-900 font-semibold mb-4">Contact</h3>
+            <div className="space-y-4">
+              <div>
+                {/* <p className="text-sm font-medium text-gray-700">Email</p> */}
+                <a
+                  href={`mailto:${FOOTER_LINKS.contact.email}`}
+                  className="footer-link text-sm text-gray-600 hover:text-primary transition-colors"
+                >
+                  {FOOTER_LINKS.contact.email}
+                </a>
+              </div>
+              <div>
+                {/* <p className="text-sm font-medium text-gray-700">Location</p> */}
+                <address className="not-italic">
+                  {FOOTER_LINKS.contact.address.map((line, index) => (
+                    <p
+                      key={index}
+                      className="footer-link text-sm text-gray-600"
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </address>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
+        <div  className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex space-x-6">
               {SOCIAL_LINKS.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-400 hover:text-primary"
+                  className="social-link text-gray-400 hover:text-primary transform transition-all duration-300 hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -4,9 +4,11 @@ import Link from 'next/link';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
     | 'primary'
+    | 'primary-alt'
     | 'secondary'
     | 'outline'
     | 'ghost'
+    | 'ghost-alt'
     | 'white'
     | 'secondary-alt'
     | 'white-alt';
@@ -18,14 +20,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantStyles = {
   primary:
     'border border-primary text-primary hover:text-white hover:bg-primary',
+  'primary-alt':
+    'bg-primary text-white hover:bg-primary-100',
   secondary: 'text-secondary hover:text-white hover:bg-secondary',
   'secondary-alt':
     'bg-secondary text-white hover:bg-secondary-200 hover:bg-secondary',
 
   white: 'border border-white text-white hover:text-primary hover:bg-white',
-  'white-alt': 'bg-white text-black hover:bg-gray-200',
+  'white-alt': 'bg-white text-primary hover:bg-gray-200',
   outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50',
   ghost: 'text-gray-700 hover:bg-gray-50',
+  'ghost-alt': 'text-gray-700 hover:bg-gray-50 px-0',
 };
 
 const sizeStyles = {
@@ -47,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const classes = `flex items-center gap-4 rounded-sm transition-all duration-300 inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+    const classes = `flex items-center gap-4 rounded-sm transition-all duration-300 inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
 
     if (href) {
       const linkProps = isExternal

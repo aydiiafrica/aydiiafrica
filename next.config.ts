@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ['u88ydg7fy0.ufs.sh', 'cdn.sanity.io'],
+  },
 };
 
 export default nextConfig;

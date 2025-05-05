@@ -1,13 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter, Lora, Sour_Gummy } from 'next/font/google';
+import { Inter, Lora } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/app/components/common/Navbar';
 import { Footer } from '@/app/components/common/Footer';
-
-const sourGummy = Sour_Gummy({
-  subsets: ['latin'],
-  variable: '--font-sour-gummy',
-});
+import { ScrollToTop } from './components/common/ScrollToTop';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,11 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${sourGummy.variable} ${lora.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${lora.variable} antialiased`}>
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <ScrollToTop />
+        <main className="">{children}</main>
         <Footer />
       </body>
     </html>

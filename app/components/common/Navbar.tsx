@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Container } from './Container';
-import Button  from './Button';
+import Button from './Button';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { cn } from '@/app/lib/cn';
 
@@ -30,12 +30,12 @@ export function Navbar() {
             ? 'translate-y-0 shadow-lg bg-primary'
             : isScrolling
             ? '-translate-y-full border-transparent'
-            : 'relative top-0 left-0 w-full translate-y-0 bg-primary border-transparent'
+            : 'relative top-0 left-0 w-full translate-y-0 bg-primary border border-primary-100'
         }
       `}
     >
       <Container>
-        <div className="flex items-center justify-between py-5 md:py-10">
+        <div className="flex items-center justify-between py-5 md:py-5">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img
@@ -62,13 +62,9 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:block">
-            <Button
-              href="/donate"
-              variant={'white'}
-              size="lg"
-            >
-              <span>Donate</span>
-              <svg
+            <Button href="/join" variant={'white'} size="lg">
+              <span>Donate Now</span>
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -84,7 +80,7 @@ export function Navbar() {
                 <path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" />
                 <path d="m2 15 6 6" />
                 <path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" />
-              </svg>
+              </svg> */}
             </Button>
           </div>
 
@@ -130,7 +126,7 @@ export function Navbar() {
             isMobileMenuOpen ? 'min-h-96 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}
         >
-          <div className="pb-4 border-gray-200 flex gap-4 flex-col items-start justify-center">
+          <div className="border-gray-200 flex gap-4 flex-col items-start justify-center">
             {NAVIGATION_ITEMS.map((item) => (
               <Link
                 key={item.href}
