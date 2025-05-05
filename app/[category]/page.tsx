@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Container } from '../components/common/Container';
 import { ProjectCard } from '@/app/components/common/ProjectCard';
-import { client, urlFor } from '@/lib/sanity';
+import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/cn';
