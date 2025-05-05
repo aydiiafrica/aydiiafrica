@@ -1,7 +1,6 @@
 import { sanityClient } from '@/lib/sanity';
 import { Container } from '../components/common/Container';
 import Image from 'next/image';
-import Link from 'next/link';
 import { cn } from '../lib/cn';
 import { ProjectCard } from '../components/common/ProjectCard';
 import { urlFor } from '../lib/sanity';
@@ -112,9 +111,7 @@ export default async function CategoryPage({ params }: Props) {
               />
             </div>
           )}
-          <h1 className={`text-4xl font-heading`}>
-            {sdg?.title}
-          </h1>
+          <h1 className={`text-4xl font-heading`}>{sdg?.title}</h1>
           <p className="w-full md:max-w-[80ch] text-gray-500 font-light">
             {sdg?.description}
           </p>

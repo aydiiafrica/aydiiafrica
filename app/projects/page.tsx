@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -45,9 +46,12 @@ export default function ProjectsListPage() {
     <div className="py-20 md:py-20">
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-heading mb-6">Our Projects</h1>
+          <h1 className="text-4xl md:text-5xl font-heading mb-6">
+            Our Projects
+          </h1>
           <p className="text-gray-500">
-            Explore our impactful projects aligned with the UN Sustainable Development Goals.
+            Explore our impactful projects aligned with the UN Sustainable
+            Development Goals.
           </p>
         </div>
 
