@@ -33,7 +33,7 @@ export default function NewsListPage() {
   );
 
   return (
-    <div className="py-20 md:py-20">
+    <div className="py-20 md:py-20 bg-gray-50">
       <Container>
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-heading mb-6">Latest News</h1>

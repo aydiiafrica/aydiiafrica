@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client';
-
-import { useState, useEffect } from 'react';
 import { Container } from '@/app/components/common/Container';
-import { client, News, urlFor } from '@/app/lib/sanity';
-import { PortableText } from '@portabletext/react';
-import { use } from 'react';
+import { client, urlFor } from '@/app/lib/sanity';
+import { TeamMember as TeamMemberType } from '@/types';
+import { PortableText } from 'next-sanity';
+import { use, useEffect, useState } from 'react';
+import Image from 'next/image'
 
 const components = {
   block: {
@@ -61,38 +60,31 @@ const components = {
   },
 };
 
-export default function NewsArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = use(params);
-  const [article, setArticle] = useState<News | null>(null);
+const TeamMember = ({ params }: { params: Promise<{ slug: string }> }) => {
+  const [teamMember, setTeamMember] = useState<TeamMemberType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { slug } = use(params);
 
   useEffect(() => {
-    const fetchArticle = async () => {
+    const fetchProject = async () => {
       try {
         setIsLoading(true);
-        const query = `*[_type == "news" && slug.current == $slug][0] {
-          _id,
-          title,
-          slug,
-          description,
-          featuredImage,
-          content,
-          publishedAt
-        }`;
+        const query = `*[_type == "teamMember" && slug.current == $slug][0] {
+            fullName,
+            avatar,
+            content,
+            role
+          }`;
         const result = await client.fetch(query, { slug });
-        setArticle(result);
+        setTeamMember(result);
       } catch (error) {
-        console.error('Error fetching article:', error);
+        console.error('Error fetching user:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchArticle();
+    fetchProject();
   }, [slug]);
 
   if (isLoading) {
@@ -103,47 +95,42 @@ export default function NewsArticlePage({
     );
   }
 
-  if (!article) {
+  if (!teamMember) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500">Article not found</p>
+        <p className="text-gray-500">User not found</p>
       </div>
     );
   }
 
   return (
-    <article className="py-20">
+    <main>
       <Container>
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-heading mb-6">
-              {article.title}
-            </h1>
-            <p className="text-gray-500 mb-8">{article.description}</p>
-            <time className="text-sm text-gray-400">
-              {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
+        <div className="max-w-3xl mx-auto py-10">
+          <div className="flex items-center justify-center flex-col gap-8 text-center mb-16">
+            <figure className="h-[15rem] w-[15rem] overflow-hidden rounded-full">
+              <Image
+                src={urlFor(teamMember.avatar).url()}
+                alt={teamMember.fullName}
+                width={500}
+                height={500}
+                className="w-full h-full object-cover"
+              />
+            </figure>
+
+            <article className='space-y-3'>
+              <h4 className="font-light text-4xl">{teamMember.fullName}</h4>
+              <p className="text-gray-500 font-light">{teamMember.role}</p>
+            </article>
           </div>
 
-          {article.featuredImage && (
-            <div className="mb-12 rounded-lg overflow-hidden">
-              <img
-                src={urlFor(article.featuredImage).url()}
-                alt={article.title}
-                className="w-full"
-              />
-            </div>
-          )}
-
           <div className="prose prose-lg max-w-none">
-            <PortableText value={article.content} components={components} />
+            <PortableText value={teamMember.content} components={components} />
           </div>
         </div>
       </Container>
-    </article>
+    </main>
   );
-}
+};
+
+export default TeamMember;

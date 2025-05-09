@@ -5,7 +5,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET_ID,
+  dataset: 'production', // Using the correct dataset name directly
   apiVersion: '2024-05-04',
   useCdn: false,
 });

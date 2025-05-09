@@ -94,7 +94,7 @@ const About = () => {
   return (
     <section ref={sectionRef} className="py-20 bg-white">
       <Container>
-        <div className="flex mb-8 flex-col md:flex-row items-center justify-between">
+        <div className="flex mb-8 flex-col md:flex-row items-center gap-x-10 justify-between">
           <div ref={headerRef} className="w-full grid md:block mb-10 md:mb-0">
             <p className="text-primary mb-2">About Us</p>
             <h2 className="text-4xl font-heading mb-4">

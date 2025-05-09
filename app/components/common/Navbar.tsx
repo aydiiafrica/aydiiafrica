@@ -25,13 +25,13 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transform transition-all duration-300
+      className={`border border-gray-200 fixed top-0 left-0 right-0 z-50 transform transition-all duration-300
         ${
           isScrolled
-            ? 'translate-y-0 shadow-lg bg-primary'
+            ? 'translate-y-0 shadow-lg bg-white'
             : isScrolling
             ? '-translate-y-full border-transparent'
-            : 'relative top-0 left-0 w-full translate-y-0 bg-primary border border-primary-100'
+            : 'relative top-0 left-0 w-full translate-y-0 bg-white'
         }
       `}
     >
@@ -40,7 +40,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img
-              src={'/logo-white.png'}
+              src={'/logo-new.jpg'}
               alt="Aydiiafrica Logo"
               className="h-24 w-auto"
             />
@@ -53,7 +53,7 @@ export function Navbar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'text-md font-normal transition-colors text-white',
+                  'text-md font-normal transition-colors text-gray-500 hover:text-black ',
                   pathname === item.href ? 'underlined' : 'underline-animate'
                 )}
               >
@@ -63,14 +63,14 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:block">
-            <Button href="/join" variant={'white'} size="lg">
+            <Button href="/join" variant={'primary'} size="lg">
               <span>Donate Now</span>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="rounded-sm md:hidden p-2 text-white border border-white transition-all duration-300"
+            className="rounded-sm md:hidden p-2 text-primary border border-primary transition-all duration-300"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <span className="sr-only">Open main menu</span>
@@ -110,13 +110,13 @@ export function Navbar() {
             isMobileMenuOpen ? 'min-h-96 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}
         >
-          <div className="border-gray-200 flex gap-4 flex-col items-start justify-center">
+          <div className="border-gray-200 flex gap-4 flex-col items-start justify-center pb-4">
             {NAVIGATION_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  `block text-xl font-normal transition-colors text-white`,
+                  `block w-full text-xl font-normal transition-colors text-gray-500 hover:text-black`,
                   pathname === item.href ? 'underlined' : 'underline-animate'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -126,7 +126,7 @@ export function Navbar() {
             ))}
             <Button
               href="/donate"
-              variant={'white-alt'}
+              variant={'primary'}
               size="lg"
               className="flex items-center gap-4 w-full mt-5"
             >

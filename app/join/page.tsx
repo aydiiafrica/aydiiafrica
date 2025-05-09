@@ -138,7 +138,7 @@ export default function JoinPage() {
                 label="Full Name"
                 name="fullName"
                 register={register}
-                error={errors.fullName?.message}
+                error={errors.fullName && errors.fullName.message}
                 placeholder="eg. John Doe"
               />
 
@@ -147,7 +147,7 @@ export default function JoinPage() {
                 name="email"
                 type="email"
                 register={register}
-                error={errors.email?.message}
+                error={errors.email && errors.email.message}
                 placeholder="eg. john.doe@somewhere.com"
               />
 
@@ -156,7 +156,7 @@ export default function JoinPage() {
                 name="phoneNumber"
                 type="tel"
                 register={register}
-                error={errors.phoneNumber?.message}
+                error={errors.phoneNumber && errors.phoneNumber.message}
                 placeholder="eg. 090000000"
               />
 

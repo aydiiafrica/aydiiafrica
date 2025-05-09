@@ -12,24 +12,24 @@ export const EventCard = ({ title, images, slug, date }: EventCardProps) => {
   return (
     <Link
       href={`/events/${slug}`}
-      className="block overflow-hidden rounded-lg border border-gray-200 transition-all duration-300"
+      className="h-[20rem] relative block overflow-hidden rounded-lg border border-gray-200 transition-all duration-300"
     >
       {images.length > 0 && (
-        <div className="aspect-video relative overflow-hidden">
+     
           <Image
             src={images[0]}
             alt={title}
             fill
-            className="object-cover transition-transform duration-300 hover:scale-105"
+            className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           />
-        </div>
+      
       )}
 
-      <div className="p-4">
-        <h3 className="text-xl font-semibold line-clamp-2 text-gray-900 hover:text-primary transition-colors">
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col items-start justify-end text-left text-white bg-black/50 p-6">
+        <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
           {title}
         </h3>
-        <time className="text-sm text-gray-500 mt-1 block">
+        <time className="text-sm mt-2 block">
           {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',

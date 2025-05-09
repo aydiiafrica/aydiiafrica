@@ -5,7 +5,6 @@ interface ProjectCardProps {
   title: string;
   mainImage: string;
   slug: string;
-  category: string;
   description: string;
 }
 
@@ -13,34 +12,15 @@ export function ProjectCard({
   title,
   mainImage,
   slug,
-  category,
   description,
 }: ProjectCardProps) {
-  const categoryColors: { [key: string]: string } = {
-    'climate-action': 'bg-green-100 text-green-800',
-    'peace-justice-strong-institutions': 'bg-blue-100 text-blue-800',
-    'gender-equality': 'bg-red-100 text-red-800',
-  };
-
-  const categoryTitles: { [key: string]: string } = {
-    'climate-action': 'Climate Action',
-    'peace-justice-strong-institutions':
-      'Peace, Justice and Strong Institutions',
-    'gender-equality': 'Gender Equality',
-  };
-
   return (
-    <Link href={`/projects/${slug}`} className="group">
-      <article className="bg-white rounded-lg overflow-hidden border border-gray-200 transition-all duration-200 ">
-        <div className="relative h-48 w-full">
-          <Image src={mainImage} alt={title} fill className="object-cover" />
+    <Link href={`/projects/${slug}`} className="group p-4 rounded-md border border-gray-200">
+      <article className="bg-white rounded-lg overflow-hidden transition-all duration-200 space-y-4">
+        <div className="relative h-48 w-full rounded-md overflow-hidden">
+          <Image src={mainImage} alt={title} fill className="w-full h-full object-cover" />
         </div>
-        <div className="p-6">
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-sm mb-4 ${categoryColors[category]}`}
-          >
-            {categoryTitles[category]}
-          </span>
+        <div className="">
           <h3 className="text-xl font-medium mb-2 group-hover:text-primary transition-colors">
             {title}
           </h3>

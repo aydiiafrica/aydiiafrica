@@ -4,63 +4,10 @@
 
 import { useEffect, useState } from 'react';
 import { Container } from '@/app/components/common/Container';
-import { client, Event, urlFor } from '@/app/lib/sanity';
-import { PortableText } from '@portabletext/react';
-import Slider from 'react-slick';
+import { client, Event } from '@/app/lib/sanity';
 import { use } from 'react';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
-const components = {
-  block: {
-    normal: ({ children }: any) => (
-      <p className="mb-6 text-gray-600 leading-relaxed">{children}</p>
-    ),
-    h1: ({ children }: any) => (
-      <h1 className="text-4xl font-heading mb-8">{children}</h1>
-    ),
-    h2: ({ children }: any) => (
-      <h2 className="text-3xl font-heading mb-6 mt-12">{children}</h2>
-    ),
-    h3: ({ children }: any) => (
-      <h3 className="text-2xl font-heading mb-4 mt-8">{children}</h3>
-    ),
-    h4: ({ children }: any) => (
-      <h4 className="text-xl font-heading mb-4 mt-6">{children}</h4>
-    ),
-    blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-6">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }: any) => (
-      <ul className="list-disc list-inside mb-6 space-y-2">{children}</ul>
-    ),
-    number: ({ children }: any) => (
-      <ol className="list-decimal list-inside mb-6 space-y-2">{children}</ol>
-    ),
-  },
-  types: {
-    image: ({ value }: any) => {
-      return (
-        <div className="my-8 rounded-lg overflow-hidden">
-          <img
-            src={urlFor(value).url()}
-            alt={value.alt || ''}
-            className="w-full"
-          />
-          {value.caption && (
-            <p className="text-sm text-gray-500 mt-2 text-center">
-              {value.caption}
-            </p>
-          )}
-        </div>
-      );
-    },
-  },
-};
+import { Gallery } from '@/app/components/common/Gallery';
 
 export default function EventPage({
   params,
@@ -70,19 +17,6 @@ export default function EventPage({
   const { slug } = use(params);
   const [event, setEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: true,
-    adaptiveHeight: true,
-    fade: true,
-  };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -129,7 +63,7 @@ export default function EventPage({
     <article className="py-20">
       <Container>
         <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
+          <div className="mb-4">
             <h1 className="text-4xl md:text-5xl font-heading mb-6">
               {event.title}
             </h1>
@@ -146,28 +80,10 @@ export default function EventPage({
           </div>
 
           {event.gallery && event.gallery.length > 0 && (
-            <div className="mb-12">
-              <div className="aspect-[16/10] relative">
-                <Slider {...sliderSettings}>
-                  {event.gallery.map((image: any, index: number) => (
-                    <div key={index} className="outline-none h-[30rem] rounded-md overflow-hidden">
-                      <img
-                        src={urlFor(image).url()}
-                        alt={`${event.title} - Image ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </Slider>
-              </div>
-            </div>
+            
+              <Gallery media={event.gallery} title={''} />
+            
           )}
-
-          <div className="prose prose-lg max-w-none">
-            {event.content && (
-              <PortableText value={event.content} components={components} />
-            )}
-          </div>
         </div>
       </Container>
     </article>

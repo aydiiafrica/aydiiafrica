@@ -156,7 +156,7 @@ const ThematicAreas = () => {
                     sdg.heading
                   )}
                 >
-                  <span>See Projects</span>
+                  <span>See More</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"

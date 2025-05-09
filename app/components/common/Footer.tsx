@@ -85,7 +85,7 @@ export function Footer() {
           <div  className="col-span-2 md:col-span-1">
             <Link href="/" className="flex flex-col items-start">
               <img
-                src="/logo.png"
+                src="/logo-new.jpg"
                 alt="Aydiiafrica Logo"
                 className="h-30 w-auto"
               />
