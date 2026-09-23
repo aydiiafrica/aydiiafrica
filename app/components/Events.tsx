@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-
 import { useEffect, useRef, useState } from 'react';
 import { Container } from './common/Container';
 import { EventCard } from './common/EventCard';
@@ -19,16 +18,20 @@ const Events = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const query = `*[_type == "event"] | order(date desc) [0...3] {
-        _id,
-        title,
-        slug,
-        description,
-        gallery,
-        date
-      }`;
-      const result = await client.fetch(query);
-      setEvents(result);
+      try {
+        const query = `*[_type == "event"] | order(date desc) [0...3] {
+          _id,
+          title,
+          slug,
+          description,
+          gallery,
+          date
+        }`;
+        const result = await client.fetch(query);
+        setEvents(result || []);
+      } catch (error) {
+        console.error("Error fetching homepage events:", error);
+      }
     };
 
     fetchEvents();
@@ -88,8 +91,10 @@ const Events = () => {
             <EventCard
               key={event._id}
               title={event.title}
-              images={event.gallery.map((image: any) => urlFor(image).url())}
-              slug={event.slug.current}
+              // Added array check fallback to prevent fatal mapping crashes
+              images={Array.isArray(event.gallery) ? event.gallery.map((image: any) => urlFor(image).url()) : []}
+              // Added optional chaining for slug
+              slug={event.slug?.current || ''}
               date={event.date}
             />
           ))}
