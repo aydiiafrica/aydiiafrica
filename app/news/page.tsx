@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -11,25 +12,30 @@ export default function NewsListPage() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const query = `*[_type == "news"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        description,
-        featuredImage,
-        publishedAt
-      }`;
-      const result = await client.fetch(query);
-      setNews(result);
+      try {
+        const query = `*[_type == "news"] | order(publishedAt desc) {
+          _id,
+          title,
+          slug,
+          description,
+          featuredImage,
+          publishedAt
+        }`;
+        const result = await client.fetch(query);
+        setNews(result || []);
+      } catch (error) {
+        console.error("Error fetching Sanity news:", error);
+      }
     };
 
     fetchNews();
   }, []);
 
+  // Added optional chaining (?.) to prevent crashes on undefined fields
   const filteredNews = news.filter(
     (item) =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase())
+      item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -58,8 +64,9 @@ export default function NewsListPage() {
             <NewsCard
               key={item._id}
               title={item.title}
-              featuredImage={urlFor(item.featuredImage).url()}
-              slug={item.slug.current}
+              // Added fallback check for featuredImage
+              featuredImage={item.featuredImage ? urlFor(item.featuredImage).url() : ''}
+              slug={item.slug?.current || ''}
               description={item.description}
               publishedAt={item.publishedAt}
             />
