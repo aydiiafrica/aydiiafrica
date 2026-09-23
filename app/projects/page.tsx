@@ -9,8 +9,8 @@ import { client, urlFor } from '@/app/lib/sanity';
 interface Project {
   _id: string;
   title: string;
-  slug: { current: string };
-  category: string;
+  slug: string; // Updated to match the flattened query projection
+  category?: string;
   description: string;
   mainImage: any;
 }
@@ -21,24 +21,30 @@ export default function ProjectsListPage() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const query = `*[_type == "project"] {
-        _id,
-        title,
-        slug,
-        description,
-        mainImage
-      }`;
-      const result = await client.fetch(query);
-      setProjects(result);
+      try {
+        // Optimized query: maps slug.current directly to "slug" and sorts by newest
+        const query = `*[_type == "project"] | order(_createdAt desc) {
+          _id,
+          title,
+          "slug": slug.current,
+          description,
+          mainImage
+        }`;
+        const result = await client.fetch(query);
+        setProjects(result || []);
+      } catch (error) {
+        console.error("Error fetching Sanity projects:", error);
+      }
     };
 
     fetchProjects();
   }, []);
 
+  // Safe optional chaining (?.) prevents crashes if a field is undefined
   const filteredProjects = projects.filter(
     (project) =>
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase())
+      project.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -70,9 +76,9 @@ export default function ProjectsListPage() {
               <ProjectCard
                 key={project._id}
                 title={project.title}
-                mainImage={urlFor(project.mainImage).url()}
-                slug={project.slug.current}
-                // category={project.category}
+                // Fallback added to prevent urlFor from crashing if image is missing
+                mainImage={project.mainImage ? urlFor(project.mainImage).url() : ''}
+                slug={project.slug}
                 description={project.description}
               />
             ))}
