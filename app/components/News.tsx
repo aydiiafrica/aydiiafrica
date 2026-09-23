@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -17,16 +18,20 @@ const News = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const query = `*[_type == "news"] | order(publishedAt desc) [0...3] {
-        _id,
-        title,
-        slug,
-        description,
-        featuredImage,
-        publishedAt
-      }`;
-      const result = await client.fetch(query);
-      setNews(result);
+      try {
+        const query = `*[_type == "news"] | order(publishedAt desc) [0...3] {
+          _id,
+          title,
+          slug,
+          description,
+          featuredImage,
+          publishedAt
+        }`;
+        const result = await client.fetch(query);
+        setNews(result || []);
+      } catch (error) {
+        console.error("Error fetching homepage news:", error);
+      }
     };
 
     fetchNews();
@@ -85,8 +90,10 @@ const News = () => {
             <NewsCard
               key={item._id}
               title={item.title}
-              featuredImage={urlFor(item.featuredImage).url()}
-              slug={item.slug.current}
+              // Added fallback for featuredImage to prevent crashes
+              featuredImage={item.featuredImage ? urlFor(item.featuredImage).url() : ''}
+              // Added optional chaining for slug
+              slug={item.slug?.current || ''}
               description={item.description}
               publishedAt={item.publishedAt}
             />
