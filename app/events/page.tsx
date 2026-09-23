@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -13,25 +12,30 @@ export default function EventsListPage() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const query = `*[_type == "event"] | order(date desc) {
-        _id,
-        title,
-        slug,
-        description,
-        gallery,
-        date
-      }`;
-      const result = await client.fetch(query);
-      setEvents(result);
+      try {
+        const query = `*[_type == "event"] | order(date desc) {
+          _id,
+          title,
+          slug,
+          description,
+          gallery,
+          date
+        }`;
+        const result = await client.fetch(query);
+        setEvents(result || []);
+      } catch (error) {
+        console.error("Error fetching Sanity events:", error);
+      }
     };
 
     fetchEvents();
   }, []);
 
+  // Added optional chaining to prevent crashes if title or description are undefined
   const filteredEvents = events.filter(
     (event) =>
-      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchQuery.toLowerCase())
+      event.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.description?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -63,8 +67,9 @@ export default function EventsListPage() {
               <EventCard
                 key={event._id}
                 title={event.title}
-                images={event.gallery.map((image: any) => urlFor(image).url())}
-                slug={event.slug.current}
+                // Fallback added: strictly checks for an array before mapping images to prevent fatal crashes
+                images={Array.isArray(event.gallery) ? event.gallery.map((image: any) => urlFor(image).url()) : []}
+                slug={event.slug?.current || ''}
                 date={event.date}
               />
             ))}
