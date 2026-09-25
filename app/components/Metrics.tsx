@@ -15,8 +15,14 @@ interface MetricsData {
   communitiesReached: number;
 }
 
+const FALLBACK_METRICS: MetricsData = {
+  projectsCompleted: 20,
+  peopleImpacted: 3500,
+  communitiesReached: 50,
+};
+
 const Metrics = () => {
-  const [metrics, setMetrics] = useState<MetricsData | null>(null);
+  const [metrics, setMetrics] = useState<MetricsData>(FALLBACK_METRICS);
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
@@ -24,13 +30,25 @@ const Metrics = () => {
 
   useEffect(() => {
     const fetchMetrics = async () => {
-      const query = `*[_type == "metrics"][0] {
-        projectsCompleted,
-        peopleImpacted,
-        communitiesReached
-      }`;
-      const result = await client.fetch(query);
-      setMetrics(result);
+      try {
+        const query = `*[_type == "metrics"][0] {
+          projectsCompleted,
+          peopleImpacted,
+          communitiesReached
+        }`;
+        const result = await client.fetch(query);
+        setMetrics({
+          projectsCompleted:
+            result?.projectsCompleted || FALLBACK_METRICS.projectsCompleted,
+          peopleImpacted:
+            result?.peopleImpacted || FALLBACK_METRICS.peopleImpacted,
+          communitiesReached:
+            result?.communitiesReached || FALLBACK_METRICS.communitiesReached,
+        });
+      } catch (error) {
+        console.error('Error fetching metrics:', error);
+        setMetrics(FALLBACK_METRICS);
+      }
     };
 
     fetchMetrics();
@@ -91,7 +109,6 @@ const Metrics = () => {
               className="w-full h-full object-cover"
             />
           </div>
-
           <div className="space-y-10">
             <article ref={contentRef} className="space-y-6">
               <h3 className="text-4xl font-normal">
@@ -104,7 +121,6 @@ const Metrics = () => {
                 resilience, equity, and peace.
               </p>
             </article>
-
             <div
               ref={metricsRef}
               className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-10"
@@ -112,7 +128,7 @@ const Metrics = () => {
               <article className="text-primary rounded-xl font-light text-md flex flex-col items-center md:items-start gap-2">
                 <span className="text-5xl font-mono">
                   <CountUp
-                    end={metrics?.projectsCompleted || 0}
+                    end={metrics.projectsCompleted}
                     duration={2.5}
                     separator=","
                     // enableScrollSpy={true}
@@ -124,7 +140,7 @@ const Metrics = () => {
               <article className="text-secondary rounded-xl font-light text-md flex flex-col items-center gap-2">
                 <span className="text-5xl font-mono">
                   <CountUp
-                    end={metrics?.peopleImpacted || 0}
+                    end={metrics.peopleImpacted}
                     duration={2.5}
                     separator=","
                     // enableScrollSpy={true}
@@ -136,7 +152,7 @@ const Metrics = () => {
               <article className="text-primary-200 rounded-xl font-light text-md flex flex-col items-center gap-2">
                 <span className="text-5xl font-mono">
                   <CountUp
-                    end={metrics?.communitiesReached || 0}
+                    end={metrics.communitiesReached}
                     duration={2.5}
                     separator=","
                     // enableScrollSpy={true}
