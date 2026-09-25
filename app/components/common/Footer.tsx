@@ -22,7 +22,7 @@ const FOOTER_LINKS = {
     },
   ],
   contact: {
-    email: 'info@aydiiafrica.org',
+    email: 'ayiiafrica@gmail.com',
     phone: '+234 803 736 9474',
     address: ['No.115 Copa Cabana Estate, Apo', 'Abuja, Nigeria'],
   },
