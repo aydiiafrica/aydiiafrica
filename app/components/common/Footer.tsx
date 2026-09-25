@@ -1,8 +1,6 @@
 'use client';
-
 import Link from 'next/link';
 import { Container } from './Container';
-
 const FOOTER_LINKS = {
   about: [
     { name: 'Our Mission', href: '/about#mission' },
@@ -13,6 +11,7 @@ const FOOTER_LINKS = {
     { name: 'Join Us', href: '/join' },
     { name: 'Donate', href: '/donate' },
     { name: 'Partner with Us', href: '/partner' },
+    { name: 'Connect', href: '/links' },
   ],
   resources: [
     { name: 'News', href: '/news' },
@@ -28,7 +27,6 @@ const FOOTER_LINKS = {
     address: ['No.115 Copa Cabana Estate, Apo', 'Abuja, Nigeria'],
   },
 };
-
 const SOCIAL_LINKS = [
   // {
   //   name: 'Twitter',
@@ -75,7 +73,6 @@ const SOCIAL_LINKS = [
     ),
   },
 ];
-
 export function Footer() {
   return (
     <footer className="bg-white border-t border-gray-200">
