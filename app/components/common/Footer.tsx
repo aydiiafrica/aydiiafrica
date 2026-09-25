@@ -8,7 +8,6 @@ const FOOTER_LINKS = {
     { name: 'Our Mission', href: '/about#mission' },
     { name: 'Vision & Values', href: '/about#vision' },
     { name: 'Team', href: '/about#team' },
-
   ],
   getInvolved: [
     { name: 'Join Us', href: '/join' },
@@ -25,7 +24,8 @@ const FOOTER_LINKS = {
   ],
   contact: {
     email: 'info@aydiiafrica.org',
-    address: ['Ganaja Village Lokoja, Kogi State, Nigeria'],
+    phone: '+234 803 736 9474',
+    address: ['No.115 Copa Cabana Estate, Apo', 'Abuja, Nigeria'],
   },
 };
 
@@ -77,12 +77,11 @@ const SOCIAL_LINKS = [
 ];
 
 export function Footer() {
-
   return (
-    <footer  className="bg-white border-t border-gray-200">
+    <footer className="bg-white border-t border-gray-200">
       <Container className="py-12 md:py-16">
         <div className="grid grid-cols-2 gap-5 md:gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
-          <div  className="col-span-2 md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex flex-col items-start">
               <img
                 src="/logo-new.jpg"
@@ -95,7 +94,6 @@ export function Footer() {
               initiatives across Africa.
             </p>
           </div>
-
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">About</h3>
             <ul className="space-y-3">
@@ -111,7 +109,6 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">Get Involved</h3>
             <ul className="space-y-3">
@@ -127,7 +124,6 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">Resources</h3>
             <ul className="space-y-3">
@@ -143,12 +139,10 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">Contact</h3>
             <div className="space-y-4">
               <div>
-                {/* <p className="text-sm font-medium text-gray-700">Email</p> */}
                 <a
                   href={`mailto:${FOOTER_LINKS.contact.email}`}
                   className="footer-link text-sm text-gray-600 hover:text-primary transition-colors"
@@ -157,7 +151,14 @@ export function Footer() {
                 </a>
               </div>
               <div>
-                {/* <p className="text-sm font-medium text-gray-700">Location</p> */}
+                <a
+                  href={`tel:${FOOTER_LINKS.contact.phone.replace(/\s+/g, '')}`}
+                  className="footer-link text-sm text-gray-600 hover:text-primary transition-colors"
+                >
+                  {FOOTER_LINKS.contact.phone}
+                </a>
+              </div>
+              <div>
                 <address className="not-italic">
                   {FOOTER_LINKS.contact.address.map((line, index) => (
                     <p
@@ -172,8 +173,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-
-        <div  className="mt-12 pt-8 border-t border-gray-200">
+        <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex space-x-6">
               {SOCIAL_LINKS.map((item) => (
