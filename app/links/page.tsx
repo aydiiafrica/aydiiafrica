@@ -39,8 +39,8 @@ const LINKS = [
   },
   {
     name: 'Email',
-    href: 'mailto:info@aydiiafrica.org',
-    detail: 'info@aydiiafrica.org',
+    href: 'mailto:ayiiafrica@gmail.com',
+    detail: 'ayiiafrica@gmail.com',
   },
   {
     name: 'Call / WhatsApp',
