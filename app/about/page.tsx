@@ -54,12 +54,12 @@ const About = () => {
                   Initiative for Africa (AYDii Africa) is a women-led and
                   youth-focused non-governmental organization. We are accredited
                   to the United Nations Convention to Combat Desertification,
-                  granting observer status to the UNCCD Conference of Parties,
-                  and are a member of the Loss and Damage Youth Coalition. Our
-                  strategic niche comprises five interlinked areas:
-                  Gender-Based Violence, Safe Migration, Girl Child Protection,
-                  Women and Youth Empowerment, and Climate Change and Land
-                  Restoration.
+                  granting observer status to the UNCCD Conference of the
+                  Parties, and are a member of the Loss and Damage Youth
+                  Coalition. Our strategic niche comprises five interlinked
+                  areas: Gender-Based Violence, Safe Migration, Girl Child
+                  Protection, Women and Youth Empowerment, and Climate Change
+                  and Land Restoration.
                 </p>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
@@ -70,7 +70,7 @@ const About = () => {
                       A world where women, girls and young people live free from
                       violence and fear, empowered with education, economic
                       agency and climate resilience, actively participating in
-                      environmental governance and nation building.
+                      environmental governance and nation-building.
                     </p>
                   </div>
                   <div>
@@ -92,12 +92,12 @@ const About = () => {
                 <p className="font-light text-lg">
                   Our guiding principles include transparency and
                   accountability, honesty, mutual respect, creativity, gender
-                  sensitiveness, cost efficiency, participation, and
-                  utilization of local wisdom and resources. We believe in the
-                  potential power of women, girls and youth to participate
-                  actively in development initiatives for nation building and
-                  in equal opportunity irrespective of class, age, ethnicity,
-                  culture or religion.
+                  sensitivity, cost-efficiency, participation, and utilization
+                  of local wisdom and resources. We believe in the potential
+                  power of women, girls and youth to participate actively in
+                  development initiatives for nation-building and in equal
+                  opportunity irrespective of class, age, ethnicity, culture or
+                  religion.
                 </p>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
@@ -112,9 +112,7 @@ const About = () => {
                     <li>Education and Girl Child Protection.</li>
                     <li>Safe Migration and protection through NACTAL.</li>
                     <li>Income and Empowerment through green jobs.</li>
-                    <li>
-                      Environment and Climate Resilience under UNCCD.
-                    </li>
+                    <li>Environment and Climate Resilience under UNCCD.</li>
                   </ul>
                 </div>
                 <span className="text-9xl font-[100] text-primary">04</span>
@@ -194,7 +192,7 @@ const About = () => {
               })}
               {teamMembers.length === 0 && (
                 <div className="col-span-full text-center text-gray-500 py-8">
-                  No team member yet.
+                  No team members yet.
                 </div>
               )}
             </div>
