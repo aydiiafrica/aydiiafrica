@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
+
 import { Container } from '@/app/components/common/Container';
 import { client, urlFor } from '@/app/lib/sanity';
 import { TeamMember as TeamMemberType } from '@/types';
 import { PortableText } from 'next-sanity';
 import { use, useEffect, useState } from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
 
 const components = {
   block: {
@@ -42,6 +43,8 @@ const components = {
   },
   types: {
     image: ({ value }: any) => {
+      if (!value?.asset) return null;
+
       return (
         <div className="my-8 rounded-lg overflow-hidden">
           <img
@@ -66,7 +69,7 @@ const TeamMember = ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = use(params);
 
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchTeamMember = async () => {
       try {
         setIsLoading(true);
         const query = `*[_type == "teamMember" && slug.current == $slug][0] {
@@ -76,15 +79,16 @@ const TeamMember = ({ params }: { params: Promise<{ slug: string }> }) => {
             role
           }`;
         const result = await client.fetch(query, { slug });
-        setTeamMember(result);
+        setTeamMember(result || null);
       } catch (error) {
-        console.error('Error fetching user:', error);
+        console.error('Error fetching team member:', error);
+        setTeamMember(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProject();
+    fetchTeamMember();
   }, [slug]);
 
   if (isLoading) {
@@ -108,24 +112,41 @@ const TeamMember = ({ params }: { params: Promise<{ slug: string }> }) => {
       <Container>
         <div className="max-w-3xl mx-auto py-10">
           <div className="flex items-center justify-center flex-col gap-8 text-center mb-16">
-            <figure className="h-[15rem] w-[15rem] overflow-hidden rounded-full">
-              <Image
-                src={urlFor(teamMember.avatar).url()}
-                alt={teamMember.fullName}
-                width={500}
-                height={500}
-                className="w-full h-full object-cover"
-              />
+            <figure className="h-[15rem] w-[15rem] overflow-hidden rounded-full bg-gray-200">
+              {teamMember.avatar ? (
+                <Image
+                  src={urlFor(teamMember.avatar).url()}
+                  alt={teamMember.fullName || 'Team member'}
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-300 flex items-center justify-center text-sm text-gray-600">
+                  No Image
+                </div>
+              )}
             </figure>
-
-            <article className='space-y-3'>
-              <h4 className="font-light text-4xl">{teamMember.fullName}</h4>
-              <p className="text-gray-500 font-light">{teamMember.role}</p>
+            <article className="space-y-3">
+              <h4 className="font-light text-4xl">
+                {teamMember.fullName || 'Unnamed Member'}
+              </h4>
+              <p className="text-gray-500 font-light">
+                {teamMember.role || 'Team Member'}
+              </p>
             </article>
           </div>
-
           <div className="prose prose-lg max-w-none">
-            <PortableText value={teamMember.content} components={components} />
+            {teamMember.content ? (
+              <PortableText
+                value={teamMember.content}
+                components={components}
+              />
+            ) : (
+              <p className="serif text-gray-500 text-center">
+                No biography provided.
+              </p>
+            )}
           </div>
         </div>
       </Container>
