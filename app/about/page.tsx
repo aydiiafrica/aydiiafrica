@@ -50,80 +50,85 @@ const About = () => {
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
                 <span className="text-9xl font-[100] text-primary">01</span>
                 <p className="font-light text-lg">
-                  Advocacy for youth women and girls development impact
-                  initiative for Africa (AYDii Africa) is a non-governmental
-                  organization dedication to the synergy of organizations,
-                  communities, and relevant stakeholders to create innovative,
-                  impactful, and sustainable solutions in promoting climate
-                  action, addressing critical socio-economic challenges and
-                  ensuring peace justice and strong institution. We are
-                  committed to fostering community resilience and sustainable
-                  development in Nigeria and Africa at large. With a focus on
-                  addressing the socio-economic and non economic loss and damage
-                  impacts of climate change, the organization leverages
-                  grassroots strategies to promote well-being, empowerment, and
-                  recovery for vulnerable communities. The Ganaja community
-                  project aligns with our mission to address the profound
-                  effects of flood disasters that have continuously affected
-                  individuals and families over the years, leading to
-                  debilitating psycho-social challenges.
+                  Advocacy for Youth Women and Girls Development Impact
+                  Initiative for Africa (AYDii Africa) is a women-led and
+                  youth-focused non-governmental organization. We are accredited
+                  to the United Nations Convention to Combat Desertification,
+                  granting observer status to the UNCCD Conference of Parties,
+                  and are a member of the Loss and Damage Youth Coalition. Our
+                  strategic niche comprises five interlinked areas:
+                  Gender-Based Violence, Safe Migration, Girl Child Protection,
+                  Women and Youth Empowerment, and Climate Change and Land
+                  Restoration.
                 </p>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
-                <p className="font-light text-lg">
-                  We have actively engaged with local chiefs and community
-                  leaders to advocate for women participation in environmental
-                  sustainability activities such a tree planting and organized
-                  grassroots campaigns on the importance of community members to
-                  actively participate in protecting the rights of women and
-                  girls. Additionally, out current project focuses on empowering
-                  women in underserved communities to become environmental
-                  leaders and champions for climate justice. Through community
-                  organizing initiatives, to create a more sustainable and
-                  equitable future for all.
-                </p>
+                <div className="font-light text-lg space-y-6">
+                  <div>
+                    <p className="text-2xl mb-4">Our Vision</p>
+                    <p>
+                      A world where women, girls and young people live free from
+                      violence and fear, empowered with education, economic
+                      agency and climate resilience, actively participating in
+                      environmental governance and nation building.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-2xl mb-4">Our Mission</p>
+                    <p>
+                      To create a world where gender-based violence,
+                      inequalities and climate vulnerability are eradicated,
+                      where people thrive in a society that values and protects
+                      dignity, equality and freedom through sustainable decent
+                      work, economic growth, peace, justice, strong
+                      institutions, land restoration and climate justice.
+                    </p>
+                  </div>
+                </div>
                 <span className="text-9xl font-[100] text-primary">02</span>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
                 <span className="text-9xl font-[100] text-primary">03</span>
                 <p className="font-light text-lg">
-                  Through unwavering commitments, partnerships and collective
-                  efforts, our mission is to create a world where poverty, human
-                  trafficking, forced displacement, irregular migration and
-                  inequalities are eradicated, people can thrive in a society
-                  that values and protect their dignity, equality, and freedom
-                  through sustainable climate action, economic growth, peace,
-                  justice and strong institution.
+                  Our guiding principles include transparency and
+                  accountability, honesty, mutual respect, creativity, gender
+                  sensitiveness, cost efficiency, participation, and
+                  utilization of local wisdom and resources. We believe in the
+                  potential power of women, girls and youth to participate
+                  actively in development initiatives for nation building and
+                  in equal opportunity irrespective of class, age, ethnicity,
+                  culture or religion.
                 </p>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
                 <div className="font-light text-lg">
-                  <p className="text-2xl mb-4">OUR ACTIVITIES</p>
-                  <ol className="list-decimal ml-5 flex flex-col gap-4">
+                  <p className="text-2xl mb-4">The RESILIENCE Framework</p>
+                  <p className="mb-4">
+                    We address interconnected vulnerabilities through our
+                    integrated framework:
+                  </p>
+                  <ul className="list-disc ml-5 flex flex-col gap-4">
+                    <li>Rights and Legal Protection under the VAPP Act.</li>
+                    <li>Education and Girl Child Protection.</li>
+                    <li>Safe Migration and protection through NACTAL.</li>
+                    <li>Income and Empowerment through green jobs.</li>
                     <li>
-                      To create a platform for youth-led activities,
-                      initiatives, and events that promotes youth empowerment
-                      and provides a space for sustainable development.{' '}
+                      Environment and Climate Resilience under UNCCD.
                     </li>
-                    <li>
-                      To Provide education, awareness and advocacy programs to
-                      create wider public understanding of issues around climate
-                      mobility, displacement and human trafficking.
-                    </li>
-                  </ol>
+                  </ul>
                 </div>
                 <span className="text-9xl font-[100] text-primary">04</span>
               </article>
               <article className="flex flex-col md:flex-row items-start justify-center gap-10 border p-5 md:p-10 border-gray-200 rounded-md">
                 <span className="text-9xl font-[100] text-primary">05</span>
                 <p className="font-light text-lg">
-                  Our theory of change for “Roots for Change: Youth and women
-                  Led Action” is based on the belief that by engaging and
-                  empowering local communities using faith actors and
-                  traditional rulers as influencers through youths and women
-                  engagements we can create positive environmental, social, and
-                  economic outcomes that will benefit both people and nature in
-                  the long run to address development issues.
+                  Between 2023 and 2026, AYDii Africa reached over 3,500
+                  community members, trained over 200 youth and women,
+                  mobilized 50 community volunteers, established 5 school-based
+                  safe clubs, and supported 20 women-led weaving groups. We
+                  move beyond short-term humanitarian assistance to
+                  sustainable, skills-based resilience building aligned with
+                  the Great Green Wall and green jobs agenda.
                 </p>
               </article>
             </div>
