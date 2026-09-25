@@ -10,9 +10,11 @@ import Metrics from '../components/Metrics';
 
 const About = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+
   useEffect(() => {
-    const fetchProjects = async () => {
-      const query = `*[_type == "teamMember"] {
+    const fetchTeam = async () => {
+      try {
+        const query = `*[_type == "teamMember"] {
             _id,
             fullName,
             slug,
@@ -20,12 +22,14 @@ const About = () => {
             role,
             avatar
           }`;
-      const result = await client.fetch(query);
-      setTeamMembers(result);
-      console.log({ result });
+        const result = await client.fetch(query);
+        setTeamMembers(result || []);
+      } catch (error) {
+        console.error('Error fetching Sanity team members:', error);
+      }
     };
 
-    fetchProjects();
+    fetchTeam();
   }, []);
 
   return (
@@ -39,7 +43,6 @@ const About = () => {
           Development Goals.
         </p>
       </article>
-
       <div className="">
         <section className="py-10 pt-4">
           <Container>
@@ -126,7 +129,6 @@ const About = () => {
             </div>
           </Container>
         </section>
-
         <section className="py-10 pt-16 border-b border-gray-200">
           <Container>
             <article className="text-center mb-8">
@@ -135,33 +137,56 @@ const About = () => {
               </h3>
             </article>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10">
-              {teamMembers.map((teamMember) => (
-                <Link
-                  passHref
-                  href={`/team/${teamMember.slug?.current}`}
-                  key={teamMember._id}
-                  className={`p-4 text-center flex flex-col items-center justify-center gap-4 border border-gray-200 hover:border-primary rounded-md py-16 transition-all duration-300`}
-                >
-                  <figure className="h-[8rem] w-[8rem] overflow-hidden rounded-full">
-                    <Image
-                      src={urlFor(teamMember.avatar).url()}
-                      alt={teamMember.fullName}
-                      width={500}
-                      height={500}
-                      className="w-full h-full object-cover"
-                    />
-                  </figure>
+              {teamMembers.map((teamMember) => {
+                const slug = teamMember.slug?.current;
+                const cardClassName =
+                  'p-4 text-center flex flex-col items-center justify-center gap-4 border border-gray-200 hover:border-primary rounded-md py-16 transition-all duration-300';
 
-                  <article>
-                    <h4 className="font-light text-2xl">
-                      {teamMember.fullName}
-                    </h4>
-                    <p className="text-gray-500 font-light">
-                      {teamMember.role}
-                    </p>
-                  </article>
-                </Link>
-              ))}
+                const cardContent = (
+                  <>
+                    <figure className="h-[8rem] w-[8rem] overflow-hidden rounded-full bg-gray-200">
+                      {teamMember.avatar ? (
+                        <Image
+                          src={urlFor(teamMember.avatar).url()}
+                          alt={teamMember.fullName || 'Team member'}
+                          width={500}
+                          height={500}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-300" />
+                      )}
+                    </figure>
+                    <article>
+                      <h4 className="font-light text-2xl">
+                        {teamMember.fullName || 'Unnamed Member'}
+                      </h4>
+                      <p className="text-gray-500 font-light">
+                        {teamMember.role || 'Team Member'}
+                      </p>
+                    </article>
+                  </>
+                );
+
+                if (!slug) {
+                  return (
+                    <div key={teamMember._id} className={cardClassName}>
+                      {cardContent}
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    passHref
+                    href={`/team/${slug}`}
+                    key={teamMember._id}
+                    className={cardClassName}
+                  >
+                    {cardContent}
+                  </Link>
+                );
+              })}
               {teamMembers.length === 0 && (
                 <div className="col-span-full text-center text-gray-500 py-8">
                   No team member yet.
